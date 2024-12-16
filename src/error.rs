@@ -10,6 +10,12 @@ pub enum Error {
     #[error("Configuration error: {0}")]
     Config(String),
 
+    #[error("Keypair error: {0}")]
+    Keypair(String),
+
+    #[error("RPC client error: {0}")]
+    RpcClient(String),
+
     #[error("Invalid input: {0}")]
     InvalidInput(String),
 

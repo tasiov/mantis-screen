@@ -58,7 +58,7 @@ pub async fn execute(config: &Config, pool_id: &str) -> Result<(), Error> {
     Ok(())
 }
 
-async fn fetch_pool(config: &Config, pool_id: &str) -> Result<ApiResponse, Error> {
+pub async fn fetch_pool(config: &Config, pool_id: &str) -> Result<ApiResponse, Error> {
     let url = format!(
         "{}{}?ids={}",
         config.urls.raydium_base_host, config.urls.raydium_pool_search_by_id, pool_id

@@ -24,4 +24,10 @@ pub enum Command {
         #[arg(short, long)]
         pool_id: String,
     },
+    /// Add liquidity to a pool
+    AddLiquidity {
+        /// Pool ID
+        #[arg(short, long)]
+        pool_id: String,
+    },
 }

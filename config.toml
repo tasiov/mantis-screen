@@ -1,9 +1,0 @@
-rpc_endpoint = "https://api.devnet.solana.com"
-keypair_path = "./keypair.json"
-
-[program_ids]
-raydium_program_id = "RaydiumProgram"
-
-[urls]
-raydium_base_host         = "https://api-v3.raydium.io"
-raydium_pool_search_by_id = "/pools/info/ids"
