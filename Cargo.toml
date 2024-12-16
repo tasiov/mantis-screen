@@ -1,0 +1,18 @@
+[package]
+name    = "mantis-raydium-client"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow             = "1.0.94"
+clap               = { version = "4.5.23", features = ["derive"] }
+color-eyre         = "0.6.3"
+serde              = { version = "1.0.216", features = ["derive"] }
+solana-client      = "2.1.6"
+solana-program     = "2.1.6"
+solana-sdk         = "2.1.6"
+thiserror          = "2.0.7"
+tokio              = "1.42.0"
+toml               = "0.8.19"
+tracing            = "0.1.41"
+tracing-subscriber = "0.3.19"
