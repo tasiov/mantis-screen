@@ -13,6 +13,9 @@ pub enum Error {
     #[error("Invalid input: {0}")]
     InvalidInput(String),
 
+    #[error("API error: {0}")]
+    Api(String),
+
     #[error(transparent)]
     Other(#[from] anyhow::Error),
 }
