@@ -1,4 +1,4 @@
-use crate::{config::Config, error::Error, utils::pretty_print};
+use crate::{config::Config, error::Error, utils::printer::pretty_print};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use tracing::{debug, info};
@@ -7,37 +7,49 @@ use tracing::{debug, info};
 pub struct ApiResponse {
     pub id: String,
     pub success: bool,
-    pub data: Vec<PoolData>,
+    pub data: Vec<PoolInfo>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct PoolData {
+pub struct PoolInfo {
     #[serde(rename = "type")]
     pub pool_type: String,
-    pub programId: String, // Changed from program_id to match JSON
+    pub programId: String,
     pub id: String,
-    pub tvl: f64,
+    pub mintA: TokenInfo,
+    pub mintB: TokenInfo,
     pub price: f64,
-    pub mintAmountA: f64, // Changed from mint_amount_a to match JSON
-    pub mintAmountB: f64, // Changed from mint_amount_b to match JSON
-    pub feeRate: f64,     // Changed from fee_rate to match JSON
-    pub mintA: TokenInfo, // Changed from mint_a to match JSON
-    pub mintB: TokenInfo, // Changed from mint_b to match JSON
+    pub mintAmountA: f64,
+    pub mintAmountB: f64,
+    pub feeRate: f64,
+    pub openTime: String,
+    pub tvl: f64,
     pub day: PeriodStats,
     pub week: PeriodStats,
     pub month: PeriodStats,
+    pub pooltype: Vec<String>,
+    pub rewardDefaultInfos: Vec<Value>,
+    pub farmUpcomingCount: i32,
+    pub farmOngoingCount: i32,
+    pub farmFinishedCount: i32,
+    pub marketId: String,
+    pub lpMint: LpMintInfo,
+    pub lpPrice: f64,
+    pub lpAmount: f64,
+    pub burnPercent: f64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct TokenInfo {
-    pub chainId: i64, // Added this field
+    pub chainId: i64,
     pub address: String,
-    pub programId: String, // Added this field
+    pub programId: String,
+    pub logoURI: String,
     pub symbol: String,
     pub name: String,
     pub decimals: i32,
-    pub tags: Vec<String>, // Added this field
-    pub extensions: Value, // Added this for flexible JSON object
+    pub tags: Vec<String>,
+    pub extensions: Value,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -49,20 +61,30 @@ pub struct PeriodStats {
     pub feeApr: f64,
     pub priceMin: f64,
     pub priceMax: f64,
-    pub rewardApr: Vec<f64>, // Added this field
+    pub rewardApr: Vec<f64>,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct LpMintInfo {
+    pub chainId: i64,
+    pub address: String,
+    pub programId: String,
+    pub logoURI: String,
+    pub symbol: String,
+    pub name: String,
+    pub decimals: i32,
+    pub tags: Vec<String>,
+    pub extensions: Value,
 }
 
 pub async fn execute(config: &Config, pool_id: &str) -> Result<(), Error> {
-    let pool = fetch_pool(config, pool_id).await?;
+    let pool = fetch_pool_info(config, pool_id).await?;
     info!("{}", pretty_print(&pool));
     Ok(())
 }
 
-pub async fn fetch_pool(config: &Config, pool_id: &str) -> Result<ApiResponse, Error> {
-    let url = format!(
-        "{}{}?ids={}",
-        config.urls.raydium_base_host, config.urls.raydium_pool_search_by_id, pool_id
-    );
+pub async fn fetch_pool_info(config: &Config, pool_id: &str) -> Result<ApiResponse, Error> {
+    let url = format!("https://api-v3.raydium.io/pools/info/ids?ids={}", pool_id);
 
     debug!("Requesting URL: {}", url);
 

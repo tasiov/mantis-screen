@@ -23,13 +23,30 @@ pub async fn run(cli: Cli) -> Result<()> {
 
     // Execute the requested command
     match cli.command {
-        Command::FetchPool { pool_id } => {
+        Command::FetchPoolInfo { pool_id } => {
             info!("Fetching pool {}", pool_id);
-            commands::fetch_pool::execute(&config, &pool_id).await
+            commands::fetch_pool_info::execute(&config, &pool_id).await
         }
-        Command::AddLiquidity { pool_id } => {
+        Command::FetchPoolKeys { pool_id } => {
+            info!("Fetching pool keys {}", pool_id);
+            commands::fetch_pool_keys::execute(&config, &pool_id).await
+        }
+        Command::AddLiquidity {
+            pool_id,
+            mint_pubkey,
+            amount,
+            slippage_percentage,
+        } => {
             info!("Adding liquidity to pool {}", pool_id);
-            commands::add_liquidity::execute(&config, &client, &pool_id).await
+            commands::add_liquidity::execute(
+                &config,
+                &client,
+                &pool_id,
+                &mint_pubkey,
+                amount,
+                slippage_percentage,
+            )
+            .await
         }
     }
 }

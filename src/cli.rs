@@ -19,7 +19,13 @@ pub struct Cli {
 #[derive(Subcommand, Debug)]
 pub enum Command {
     /// Fetch pool data by pool id
-    FetchPool {
+    FetchPoolInfo {
+        /// Pool ID
+        #[arg(short, long)]
+        pool_id: String,
+    },
+    /// Fetch pool keys by pool id
+    FetchPoolKeys {
         /// Pool ID
         #[arg(short, long)]
         pool_id: String,
@@ -29,5 +35,14 @@ pub enum Command {
         /// Pool ID
         #[arg(short, long)]
         pool_id: String,
+        /// Base mint pubkey
+        #[arg(short, long)]
+        mint_pubkey: String,
+        /// Base amount
+        #[arg(short, long)]
+        amount: f64,
+        /// Slippage percentage
+        #[arg(short, long)]
+        slippage_percentage: f64,
     },
 }

@@ -1,23 +1,12 @@
-use crate::{
-    error::{Error, Result},
-    utils::pretty_print,
-};
+use crate::error::{Error, Result};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
-use tracing::debug;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Config {
     pub rpc_endpoint: String,
     pub api_key: String,
     pub keypair_path: PathBuf,
-    pub urls: Urls,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Urls {
-    pub raydium_base_host: String,
-    pub raydium_pool_search_by_id: String,
 }
 
 impl Config {
@@ -36,10 +25,6 @@ impl Config {
             rpc_endpoint: "https://api.mainnet-beta.solana.com".to_string(),
             api_key: "".to_string(),
             keypair_path: PathBuf::from("./keypair.json"),
-            urls: Urls {
-                raydium_base_host: "".to_string(),
-                raydium_pool_search_by_id: "".to_string(),
-            },
         }
     }
 }
