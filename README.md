@@ -59,12 +59,6 @@ Remove liquidity from a pool:
     --quote-amount-min 0.000010006
 ```
 
-Get pool information:
-
-```bash
-./target/release/mantis-raydium-client pool-info AgFnRLUScRD2E4nWQxW73hdbSN7eKEUb2jHX7tx9YTYc
-```
-
 ## Available Commands
 
 - `fetch-pool-info`: Fetch pool data by pool id
