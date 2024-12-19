@@ -45,4 +45,22 @@ pub enum Command {
         #[arg(short, long)]
         slippage_percentage: f64,
     },
+    /// Remove liquidity from a pool
+    RemoveLiquidity {
+        /// Pool ID
+        #[arg(short, long)]
+        pool_id: String,
+        /// LP amount
+        #[arg(short, long)]
+        lp_amount: f64,
+        /// Slippage percentage
+        #[arg(short, long)]
+        slippage_percentage: f64,
+        // Base amount min
+        #[arg(short, long)]
+        base_amount_min: f64,
+        // Quote amount min
+        #[arg(short, long)]
+        quote_amount_min: f64,
+    },
 }

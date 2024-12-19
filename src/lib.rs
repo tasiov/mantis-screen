@@ -48,5 +48,24 @@ pub async fn run(cli: Cli) -> Result<()> {
             )
             .await
         }
+        Command::RemoveLiquidity {
+            pool_id,
+            lp_amount,
+            slippage_percentage,
+            base_amount_min,
+            quote_amount_min,
+        } => {
+            info!("Removing liquidity from pool {}", pool_id);
+            commands::remove_liquidity::execute(
+                &config,
+                &client,
+                &pool_id,
+                lp_amount,
+                slippage_percentage,
+                base_amount_min,
+                quote_amount_min,
+            )
+            .await
+        }
     }
 }
