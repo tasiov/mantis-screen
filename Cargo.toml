@@ -1,7 +1,15 @@
 [package]
-name    = "mantis-raydium-client"
-version = "0.1.0"
-edition = "2021"
+name        = "mantis-raydium-client"
+version     = "0.1.0"
+edition     = "2021"
+authors     = ["Your Name <your.email@example.com>"]
+description = "A CLI client for interacting with Raydium pools"
+license     = "MIT OR Apache-2.0"
+
+# Specify this is a binary only
+[[bin]]
+name = "mantis-raydium-client"
+path = "src/main.rs"
 
 [dependencies]
 anyhow                       = "1.0.94"
